@@ -7,11 +7,11 @@ class Board
     end
 
 	def display_game
-		puts @area[0..2].join("  |  ")
+		puts @area[0..2].join(" | ")
 		puts "-----------"
-		puts @area[3..5].join("  |  ")
+		puts @area[3..5].join(" | ")
 		puts "-----------"
-		puts @area[6..8].join("  |  ")
+		puts @area[6..8].join(" | ")
 	end
 
 	def invalid_input(input)
@@ -27,10 +27,10 @@ class Board
 	end
 	
 	def win?
-		win = [" X  X  X "," O  O  O "]
-		if win.include?(@area[0..2].join("")) ||
-			win.include?(@area[3..5].join("")) ||
-			win.include?(@area[6..8].join("")) ||
+		win = [["X","X","X"],["O","O","O"]]
+		if win.include?(@area[0..2]) ||
+			win.include?(@area[3..5]) ||
+			win.include?(@area[6..8]) ||
 			win.include?([@area[0], @area[3], @area[6]]) ||
 			win.include?([@area[1], @area[4], @area[7]]) ||
 			win.include?([@area[2], @area[5], @area[8]]) ||
