@@ -9,42 +9,42 @@ end
 
 class Board
 
-	possible_inputs = [7,8,9,4,5,6,1,2,3]
+	@@possible_inputs = [7,8,9,4,5,6,1,2,3]
     
     def initialize
         @area = Array.new(9)    
     end
 
 	def display_game
-		puts @area[0..2].join("  |  ")
+		puts @area[0..2].join(" | ")
 		puts "-----------"
-		puts @area[3..5].join("  |  ")
+		puts @area[3..5].join(" | ")
 		puts "-----------"
-		puts @area[6..8].join("  |  ")
+		puts @area[6..8].join(" | ")
 	end
 
 	def invalid_input(input)
-		true if !possible_inputs.include?(input)
+		true if !@@possible_inputs.include?(input)
 	end
 
 	def already_taken(input)
-		true if @area[possible_inputs.index(input)] != nil
+		true if @area[@@possible_inputs.index(input)] != nil
 	end
 
 	def take_turn(turn, value)
-		@area[possible_inputs.index(turn)] = value
+		@area[@@possible_inputs.index(turn)] = value
 	end
 	
 	def win?
-		win = ["XXX","OOO"]
-		if win.include?(@area[0..2].join("")) ||
-			win.include?(@area[3..5].join("")) ||
-			win.include?(@area[6..8].join("")) ||
-			win.include?([@area[0], @area[3], @area[6]]).join("")) ||
-			win.include?([@area[1], @area[4], @area[7]]).join("")) ||
-			win.include?([@area[2], @area[5], @area[8]]).join("")) ||
-			win.include?([@area[0], @area[4], @area[8]]).join("")) ||
-			win.include?([@area[2], @area[4], @area[6]]).join(""))
+		win = [["X","X","X"],["O","O","O"]]
+		if win.include?(@area[0..2]) ||
+			win.include?(@area[3..5]) ||
+			win.include?(@area[6..8]) ||
+			win.include?([@area[0], @area[3], @area[6]]) ||
+			win.include?([@area[1], @area[4], @area[7]]) ||
+			win.include?([@area[2], @area[5], @area[8]]) ||
+			win.include?([@area[0], @area[4], @area[8]]) ||
+			win.include?([@area[2], @area[4], @area[6]])
 			return true
 		end
 	end
@@ -70,10 +70,10 @@ class Game
 		puts "\n\nPlease enter the name of player 2:"
 		name2 = gets.chomp
 		x_or_o = ["X","O"]
-		x_or_o.shuffle
+		x_or_o.shuffle!
 		
 		@players = [Player.new(name1, x_or_o[0]), Player.new(name2, x_or_o[1])]
-		@players.shuffle
+		@players.shuffle!
         
 		puts "\n\n#{@players[0].name} has been randomly assigned to #{@players[0].preference}."
 		puts "Therefore, #{@players[1].name} has been assigned to #{@players[1].preference}."
@@ -104,14 +104,15 @@ class Game
 
 	def play
 		while !game_over?
-			new_turn
 			@board.display_game
+			new_turn
 		end
-		puts "Game over!"
+		@board.display_game
+		puts "\nGame over!"
 		if @board.win?
-			puts "Congrats, #{@current_player.name}!!" 
+			puts "\nCongrats, #{@current_player.name}!!" 
 		else 
-			puts "Tie!"
+			puts "\nTie!"
 		end
 	end
 end
