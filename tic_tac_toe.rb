@@ -9,7 +9,7 @@ end
 
 class Board
 
-	@@possible_inputs = [7,8,9,4,5,6,1,2,3]
+	possible_inputs = [7,8,9,4,5,6,1,2,3]
     
     def initialize
         @area = Array.new(9)    
@@ -24,15 +24,15 @@ class Board
 	end
 
 	def invalid_input(input)
-		true if !@@possible_inputs.include?(input)
+		true if !possible_inputs.include?(input)
 	end
 
 	def already_taken(input)
-		true if @area[@@possible_inputs.index(input)] != nil
+		true if @area[possible_inputs.index(input)] != nil
 	end
 
 	def take_turn(turn, value)
-		@area[@@possible_inputs.index(turn)] = value
+		@area[possible_inputs.index(turn)] = value
 	end
 	
 	def win?
@@ -40,11 +40,11 @@ class Board
 		if win.include?(@area[0..2].join("")) ||
 			win.include?(@area[3..5].join("")) ||
 			win.include?(@area[6..8].join("")) ||
-			win.include?([@area[0], @area[3], @area[6]]) ||
-			win.include?([@area[1], @area[4], @area[7]]) ||
-			win.include?([@area[2], @area[5], @area[8]]) ||
-			win.include?([@area[0], @area[4], @area[8]]) ||
-			win.include?([@area[2], @area[4], @area[6]])
+			win.include?([@area[0], @area[3], @area[6]]).join("")) ||
+			win.include?([@area[1], @area[4], @area[7]]).join("")) ||
+			win.include?([@area[2], @area[5], @area[8]]).join("")) ||
+			win.include?([@area[0], @area[4], @area[8]]).join("")) ||
+			win.include?([@area[2], @area[4], @area[6]]).join(""))
 			return true
 		end
 	end
@@ -99,15 +99,11 @@ class Game
 	end
 
 	def game_over?
-		if @board.tie? || @board.win?
-			true
-		else
-			false
-		end
+		(@board.tie? || @board.win?) ? true : false
 	end
 
 	def play
-		while game_over? == false
+		while !game_over?
 			new_turn
 			@board.display_game
 		end
