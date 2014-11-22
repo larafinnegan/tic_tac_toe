@@ -16,14 +16,14 @@ class Game
 		name1 = gets.chomp
 		puts "\n\nPlease enter the name of player 2:"
 		name2 = gets.chomp
-		x_or_o = ["X","O"]
+		x_or_o = [" X "," O "]
 		x_or_o.shuffle!
 		
 		@players = [Player.new(name1, x_or_o[0]), Player.new(name2, x_or_o[1])]
 		@players.shuffle!
         
-		puts "\n\n#{@players[0].name} has been randomly assigned to #{@players[0].preference}."
-		puts "Therefore, #{@players[1].name} has been assigned to #{@players[1].preference}."
+		puts "\n\n#{@players[0].name} has been randomly assigned to#{@players[0].preference}."
+		puts "Therefore, #{@players[1].name} has been assigned to#{@players[1].preference}."
 		puts "The computer has randomly decided who will go first.\n\n"
 	end
 

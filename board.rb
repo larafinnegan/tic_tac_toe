@@ -3,15 +3,15 @@ class Board
 	@@possible_inputs = [7,8,9,4,5,6,1,2,3]
     
     def initialize
-        @area = Array.new(9)    
+        @area = ["   ","   ","   ","   ","   ","   ","   ","   ","   "]
     end
 
 	def display_game
-		puts @area[0..2].join(" | ")
-		puts "-----------"
-		puts @area[3..5].join(" | ")
-		puts "-----------"
-		puts @area[6..8].join(" | ")
+		puts "        #{@area[0..2].join("|")}"
+		puts "        -----------"
+		puts "        #{@area[3..5].join("|")}"
+		puts "        -----------"
+		puts "        #{@area[6..8].join("|")}"
 	end
 
 	def invalid_input(input)
@@ -19,7 +19,7 @@ class Board
 	end
 
 	def already_taken(input)
-		true if @area[@@possible_inputs.index(input)] != nil
+		true if @area[@@possible_inputs.index(input)] != "   "
 	end
 
 	def take_turn(turn, value)
@@ -27,7 +27,7 @@ class Board
 	end
 	
 	def win?
-		win = [["X","X","X"],["O","O","O"]]
+		win = [[" X "," X "," X "],[" O "," O "," O "]]
 		if win.include?(@area[0..2]) ||
 			win.include?(@area[3..5]) ||
 			win.include?(@area[6..8]) ||
@@ -41,6 +41,6 @@ class Board
 	end
 
 	def tie?
-		@area.all? {|x| x != nil}
-	end
+		@area.all? {|x| x != "   "}
+	end	
 end
