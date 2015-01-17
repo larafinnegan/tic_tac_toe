@@ -1,46 +1,36 @@
 class Board
+attr_accessor :board
 
-	@@possible_inputs = [7,8,9,4,5,6,1,2,3]
-    
-    def initialize
-        @area = ["   ","   ","   ","   ","   ","   ","   ","   ","   "]
+    def initialize(board = Array.new(9, "_"))
+        @board = board
     end
 
 	def display_game
-		puts "        #{@area[0..2].join("|")}"
-		puts "        -----------"
-		puts "        #{@area[3..5].join("|")}"
-		puts "        -----------"
-		puts "        #{@area[6..8].join("|")}"
+		puts board[0..2].join("|")
+		puts board[3..5].join("|")
+		puts board[6..8].join("|")
 	end
 
-	def invalid_input(input)
-		true if !@@possible_inputs.include?(input)
-	end
-
-	def already_taken(input)
-		true if @area[@@possible_inputs.index(input)] != "   "
+	def move_valid?(input)
+		board[input - 1] == "_"
 	end
 
 	def take_turn(turn, value)
-		@area[@@possible_inputs.index(turn)] = value
+		board[turn - 1] = value
 	end
 	
-	def win?
-		win = [[" X "," X "," X "],[" O "," O "," O "]]
-		if win.include?(@area[0..2]) ||
-			win.include?(@area[3..5]) ||
-			win.include?(@area[6..8]) ||
-			win.include?([@area[0], @area[3], @area[6]]) ||
-			win.include?([@area[1], @area[4], @area[7]]) ||
-			win.include?([@area[2], @area[5], @area[8]]) ||
-			win.include?([@area[0], @area[4], @area[8]]) ||
-			win.include?([@area[2], @area[4], @area[6]])
-			return true
-		end
+	def win?(input)
+		board[0..2].join == (input * 3) ||
+		board[3..5].join == (input * 3) ||
+		board[6..8].join == (input * 3) ||
+		[board[0], board[3], board[6]].join == (input * 3) ||
+		[board[1], board[4], board[7]].join == (input * 3) ||
+		[board[2], board[5], board[8]].join == (input * 3) ||
+		[board[0], board[4], board[8]].join == (input * 3) ||
+		[board[2], board[4], board[6]].join == (input * 3)
 	end
 
 	def tie?
-		@area.all? {|x| x != "   "}
+		board.none? {|x| x == "_"}
 	end	
 end
