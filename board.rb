@@ -1,7 +1,7 @@
 class Board
 attr_accessor :board
 
-    def initialize(board = Array.new(9, "_"))
+    def initialize(board = Array.new(9, "-"))
         @board = board
     end
 
@@ -12,7 +12,7 @@ attr_accessor :board
 	end
 
 	def move_valid?(input)
-		board[input - 1] == "_"
+		board[input - 1] == "-"
 	end
 
 	def take_turn(turn, value)
@@ -31,6 +31,12 @@ attr_accessor :board
 	end
 
 	def tie?
-		board.none? {|x| x == "_"}
+		board.none? {|x| x == "-"}
 	end	
+
+  def game_over?
+    board.tie? || board.win?(@players[0].preference)
+  end
+
+  
 end
