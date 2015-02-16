@@ -19,24 +19,26 @@ class Board
     board[turn - 1] = value
   end
 
+  def win_positions
+    [[0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]]
+  end
+
   def win?(input)
-    board[0..2].join == (input * 3) ||
-    board[3..5].join == (input * 3) ||
-    board[6..8].join == (input * 3) ||
-    [board[0], board[3], board[6]].join == (input * 3) ||
-    [board[1], board[4], board[7]].join == (input * 3) ||
-    [board[2], board[5], board[8]].join == (input * 3) ||
-    [board[0], board[4], board[8]].join == (input * 3) ||
-    [board[2], board[4], board[6]].join == (input * 3)
+    win_positions.any? {|pos| [board[pos[0]], board[pos[1]], board[pos[2]]].join == (input * 3)}
   end
 
   def tie?
     board.none? {|x| x == "-"}
   end	
 
-  def game_over?
-    board.tie? || board.win?(@players[0].preference)
+  def game_over?(input)
+    tie? || win?(input)
   end
-
-
 end
