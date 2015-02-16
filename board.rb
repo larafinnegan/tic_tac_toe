@@ -5,12 +5,6 @@ class Board
     @board = board
   end
 
-  def display_game
-    puts board[0..2].join("|")
-    puts board[3..5].join("|")
-    puts board[6..8].join("|")
-  end
-
   def move_valid?(input)
     board[input - 1] == "-"
   end
