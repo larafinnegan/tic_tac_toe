@@ -12,7 +12,8 @@ class Game
 
   def create_players
     @players = [Player.new, Player.new]
-    interface.set_piece(interface.set_names(@players))
+    interface.set_names(@players)
+    interface.set_piece(@players)
   end
 
   def who_goes_first
