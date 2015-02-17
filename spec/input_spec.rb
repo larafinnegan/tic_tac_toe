@@ -82,8 +82,24 @@ describe Interface do
         expect(interface).to receive(:puts).with("\nFrank, please take your turn:")
         allow(interface).to receive(:gets).and_return("4", "5", "6", "7", "8")
         expect(interface).to receive(:puts).with("Invalid input.  Please use keys 1-9 to choose an empty position.\n\n").exactly(4).times
-        expect(interface.get_turn(players[0], board)).to eql(8)
+        expect(interface.get_turn(players[0], board.board)).to eql(8)
       end
+    end
+  end
+
+  describe "#declare_win" do
+
+    it "returns congratulations to the winner if the game is won" do
+      board.board[0..2] = ["X", "X", "X"]
+      p board
+      players[0].name = "Caroline"
+      players[0].preference = "X"
+      allow(interface).to receive(:win?).and_return(true)
+      expect(interface).to receive(:puts).with("\nCongrats, Caroline!")
+      interface.declare_win(players[0], board.board)
+
+      
+
     end
   end
 end
