@@ -94,7 +94,8 @@ describe Interface do
       p board
       players[0].name = "Caroline"
       players[0].preference = "X"
-      allow(interface).to receive(:win?).and_return(true)
+      allow(board.board).to receive(:win?).and_return(true)
+      expect(interface).to receive(:puts).with("\nGame over!")
       expect(interface).to receive(:puts).with("\nCongrats, Caroline!")
       interface.declare_win(players[0], board.board)
 
