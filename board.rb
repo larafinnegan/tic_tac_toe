@@ -31,8 +31,4 @@ class Board
   def tie?
     board.none? {|x| x == "-"}
   end	
-
-  def game_over?(input)
-    tie? || win?(input)
-  end
 end

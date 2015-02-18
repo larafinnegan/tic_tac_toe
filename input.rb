@@ -13,15 +13,18 @@ class Interface
     puts "1|2|3\n4|5|6\n7|8|9"
   end
 
-  def set_names(players)
+  def get_names(players)
+    names = []
     players.each_with_index do |player, i|
-      puts "\n\nPlease enter the name of player #{i + 1}:"
-      player.name = gets.chomp.downcase.capitalize
-      while player.name == ""
+      puts "\n\nPlease enter the name of player #{i+1}:"
+      name = gets.chomp.downcase.capitalize
+      while name == ""
         puts "Invalid input.  Please type a name:"
-        player.name = gets.chomp.downcase.capitalize
+        name = gets.chomp.downcase.capitalize
       end
+      names << name
     end
+    names
   end
 
   def display(board)
@@ -30,10 +33,7 @@ class Interface
     puts board[6..8].join("|")
   end
 
-  def set_piece(players)
-    x_or_o = ["X","O"].shuffle
-    players[0].preference = x_or_o[0]
-    players[1].preference = x_or_o[1]
+  def assign_piece(players)
     puts "\n\n#{players[0].name} has been randomly assigned to #{players[0].preference}."
     puts "Therefore, #{players[1].name} has been assigned to #{players[1].preference}."
   end
